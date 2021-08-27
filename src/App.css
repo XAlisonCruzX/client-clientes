@@ -1,38 +1,36 @@
-.App {
-  text-align: center;
+#App {
+  background-color: rgb(211, 211, 211);
+  height: 100%;
+  width: 100%;
+  display:grid;
+  grid-template-areas: 
+  "esp-cab esp-cab esp-cab"
+  "esp-esq esp-cen esp-dir"
+  "esp-rod esp-rod esp-rod";
+  grid-template-columns: 200px calc(100% - 400px) 200px;
+  grid-template-rows: 100px  calc(100% - 150px) 50px ;
+  overflow-y: scroll;
+
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#esp-cab{
+  grid-area: esp-cab;
+  
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+#esp-esq{
+  grid-area: esp-esq;
+  
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+#esp-cen{
+  grid-area: esp-cen;
+  
+  padding: 15px;
 }
-
-.App-link {
-  color: #61dafb;
+#esp-dir{
+  grid-area: esp-dir;
+  
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#esp-rod{
+  grid-area: esp-rod;
+  
 }

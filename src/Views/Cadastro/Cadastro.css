@@ -1,0 +1,58 @@
+
+  .alinhamento-botao-buscar{
+  
+    display:flex;
+    align-items: flex-end;
+  }
+  
+  .container-listas{
+    height: 100%;
+  
+    display:grid;
+    grid-template-areas:"contato endereco redesocial";
+    /* grid-template-rows: 200px; */
+    
+  
+  }
+  
+  
+  .contato{
+    padding-left: 0px !important;
+    grid-area: contato;
+    
+  }
+  .endereco{
+   
+    grid-area: endereco;
+    
+  }
+  .redesocial{
+    padding-right: 0px !important;
+    grid-area: redesocial;
+   
+  }
+  
+  .contato, .endereco, .redesocial{
+    height: 100%;
+    width: 100%;
+    padding: 0px 5px;
+  }
+  
+  .lista-itens {
+    height: 300px;
+    width: 100%;
+    border: 1px solid black;
+    padding: 5px;
+    overflow-y:scroll;
+  }
+  
+  .teste{
+  
+    height: 50px;
+    width: 100%;
+    background-color: aqua;
+    margin-bottom: 5px;
+  
+  }
+  
+  
