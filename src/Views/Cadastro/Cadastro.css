@@ -39,6 +39,7 @@
   }
   
   .lista-itens {
+    background-color: rgb(235, 230, 230);
     height: 300px;
     width: 100%;
     border: 1px solid black;
@@ -46,12 +47,13 @@
     overflow-y:scroll;
   }
   
-  .teste{
-  
-    height: 50px;
-    width: 100%;
-    background-color: aqua;
+  .itens-contato, .itens-endereco{
+    padding: 3px 5px ;
+    font-size: 14px;
+    height: auto;
+    background-color: #61c6df;
     margin-bottom: 5px;
+    border: 1px solid rgb(160, 154, 154);
   
   }
   

@@ -17,7 +17,9 @@ function App() {
   return (
     <Router>
       <div id="App">
-        <div id="esp-cab"></div>
+        <div id="esp-cab">
+          <div className="title-cab d-flex justify-content-center">Gerenciamento de Clientes</div>
+        </div>
         <div id="esp-esq">
           <nav>
             <ul>

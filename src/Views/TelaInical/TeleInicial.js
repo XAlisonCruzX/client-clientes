@@ -13,9 +13,14 @@ function TelaInicial(props) {
     const[nomeBuscar, setNomeBuscar] = useState('')
     const quantPagina = 5;
     const historico = useHistory()
+
     useEffect(()=>{
         listarCliente(numeroPagina, quantPagina, nomeBuscar)
-    },[numeroPagina, nomeBuscar])
+    },[numeroPagina])
+    useEffect(()=>{
+        setNumeroPagina(0)
+        listarCliente(0, quantPagina, nomeBuscar)
+    },[nomeBuscar])
     
 
 
@@ -36,7 +41,7 @@ function TelaInicial(props) {
                                 </div>
                                 <div className="col-4">
                                     <label>Nascimento:</label>
-                                    <label className="" name="nome">{cliente.DATA_NASCIMENTO}</label>
+                                    <label className="" name="nome">{cliente.DATA_NASCIMENTO.substring(0,10)}</label>
                                 </div>
                             </div>
                         </div>

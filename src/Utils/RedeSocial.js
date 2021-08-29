@@ -1,6 +1,6 @@
 export async function post(nome, referencia, idCliente){
     const obj = {
-        NOME: tipo,
+        NOME: nome,
         REFERENCIA: referencia,
         ID_CLIENTE: idCliente
     }

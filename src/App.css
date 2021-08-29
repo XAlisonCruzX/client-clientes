@@ -1,5 +1,5 @@
 #App {
-  background-color: rgb(211, 211, 211);
+  background-color: rgb(176, 216, 228);
   height: 100%;
   width: 100%;
   display:grid;
@@ -14,10 +14,15 @@
 }
 
 #esp-cab{
+  padding: 20px;
+  border-bottom: 1px solid rgb(235, 230, 230);
+  background-color: #61c6df;
   grid-area: esp-cab;
   
 }
 #esp-esq{
+  border-right: 1px solid rgb(235, 230, 230);
+  padding: 15px;
   grid-area: esp-esq;
   
 }
@@ -32,5 +37,13 @@
 }
 #esp-rod{
   grid-area: esp-rod;
+  
+}
+
+.title-cab{
+  font-size: 30px;
+  font-family: sans-serif;
+  color: rgba(0, 0, 0, 0.747);
+  
   
 }
