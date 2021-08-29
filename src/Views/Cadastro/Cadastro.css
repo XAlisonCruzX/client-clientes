@@ -47,7 +47,7 @@
     overflow-y:scroll;
   }
   
-  .itens-contato, .itens-endereco{
+  .itens-contato, .itens-endereco, .itens-rede-social{
     padding: 3px 5px ;
     font-size: 14px;
     height: auto;
@@ -55,6 +55,17 @@
     margin-bottom: 5px;
     border: 1px solid rgb(160, 154, 154);
   
+  }
+
+  .itens-contato:hover{
+    background-color: #0f8cac;
+  }
+
+  .itens-endereco:hover{
+    background-color: #0f8cac;
+  }
+  .itens-rede-social:hover{
+    background-color: #0f8cac;
   }
   
   

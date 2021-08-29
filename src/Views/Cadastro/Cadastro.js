@@ -3,21 +3,29 @@ import { useState, useEffect } from 'react';
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 
+import './Cadastro.css';
+
 import ModalContato from '../ModalContato/ModalContato';
 import ModalEndereco from '../ModalEndereco/ModalEndereco';
 import ModalRdSocial from '../ModalRdSocial/ModalRdSocial';
-import './Cadastro.css';
+import ModalConfirmacao from '../ModalConfirmacao/ModalConfirmacao';
+
 import * as ClienteUtils from '../../Utils/Cliente'
+
 import * as ClienteAction from '../../Store/Actions/Cliente'
 import * as ContatoAction from '../../Store/Actions/Contato';
 import * as EnderecoAction from '../../Store/Actions/Endereco'
+import * as RedeSocialAction from '../../Store/Actions/RedeSocial'
+
 
 function Cadastro(props) {
   const [showModalContato, setShowModalContato] = useState(false)
   const [showModalEndereco, setShowModalEndereco] = useState(false)
   const [showModalRdSocial, setShowModalRdSocial] = useState(false)
+  const[showModalConfirmacao, setShowModalConfirmacao] = useState(false)
   const [listaContatosDisplay, setListaContatosDisplay] = useState([])
   const [listaEnderecoDisplay, setListaEnderecoDisplay] = useState([])
+  const [listaRedeSocialDisplay, setListaRedeSocialDisplay] = useState([])
   const [inputCod, setInputCod] = useState('')
   const [inputNome, setInputNome] = useState('')
   const [inputNascimento, setInputNascimento] = useState('')
@@ -29,7 +37,7 @@ function Cadastro(props) {
     if (props.idCliente) {
       GetById(props.idCliente)
     }
-  }, [props.idCliente, showModalContato, showModalEndereco])
+  }, [props.idCliente, showModalContato, showModalEndereco, showModalRdSocial])
 
 
   function listarContatos(Telefones) {
@@ -39,34 +47,50 @@ function Cadastro(props) {
           setShowModalContato(true)
           props.setIdContato(contato.ID)
         }}>
-                <label>Numero:</label>
-                <label className="" name="nome" >&nbsp;{contato.NUMERO}</label>
-                <br/>
-                <label>Tipo:</label>
-                <label className="" name="tipo">&nbsp;{contato.TIPO}</label>
-        
+          <label>Numero:</label>
+          <label className="" name="nome" >&nbsp;{contato.NUMERO}</label>
+          <br />
+          <label>Tipo:</label>
+          <label className="" name="tipo">&nbsp;{contato.TIPO}</label>
+
         </div>
       </>)
     })
     setListaContatosDisplay(contatosDisplay)
   }
 
-  function listarEndereco(Enderecos){
+  function listarRedeSocial(redesSociais) {
+    var redesSociaisDisplay = redesSociais.map(redeSocial => {
+      return (<>
+        <div className="itens-rede-social" onClick={() => {
+          setShowModalRdSocial(true)
+          props.setIdRedeSocial(redeSocial.ID)
+        }}>
+          <label>{redeSocial.NOME}:</label>
+          <label className="" name="nome" >&nbsp;{redeSocial.REFERENCIA}</label>
+        </div>
+      </>)
+    })
+
+    setListaRedeSocialDisplay(redesSociaisDisplay)
+  }
+
+  function listarEndereco(Enderecos) {
     var enderecoDisplay = Enderecos.map((endereco) => {
-      return(<>
+      return (<>
         <div className="itens-endereco" onClick={() => {
           setShowModalEndereco(true)
           props.setIdEndereco(endereco.ID)
         }}>
-                <label>Rua:</label>
-                <label className="" name="nome" >&nbsp;{endereco.RUA}</label>
-                <br/>
-                <label>Numero:</label>
-                <label className="" name="tipo">&nbsp;{endereco.NUMERO}</label>
-                &nbsp;&nbsp;&nbsp;
-                <label>Tipo:</label>
-                <label className="" name="tipo">&nbsp;{endereco.TIPO}</label>
-          
+          <label>Rua:</label>
+          <label className="" name="nome" >&nbsp;{endereco.RUA}</label>
+          <br />
+          <label>Numero:</label>
+          <label className="" name="tipo">&nbsp;{endereco.NUMERO}</label>
+          &nbsp;&nbsp;&nbsp;
+          <label>Tipo:</label>
+          <label className="" name="tipo">&nbsp;{endereco.TIPO}</label>
+
         </div>
       </>)
     })
@@ -76,7 +100,13 @@ function Cadastro(props) {
 
 
   async function GetById(id) {
-    var resposta = await ClienteUtils.GetById(id).then(data => data)
+    let resposta
+    if(id){
+      resposta = await ClienteUtils.GetById(id).then(data => data)
+    }else{
+      limparCampos()
+    }
+    
     if (resposta.status === 200) {
       setInputCod(resposta.data.Cliente.ID)
       setInputNome(resposta.data.Cliente.NOME)
@@ -85,6 +115,7 @@ function Cadastro(props) {
       setInputRg(resposta.data.Cliente.RG)
       listarContatos(resposta.data.Cliente.Telefones)
       listarEndereco(resposta.data.Cliente.Enderecos)
+      listarRedeSocial(resposta.data.Cliente.RedesSociais)
 
     } else {
       limparCampos();
@@ -100,6 +131,8 @@ function Cadastro(props) {
     setInputCpf('');
     setInputRg('');
     setListaContatosDisplay([])
+    setListaEnderecoDisplay([])
+    setListaRedeSocialDisplay([])
   }
 
   async function salvarCliente() {
@@ -118,17 +151,8 @@ function Cadastro(props) {
 
   }
 
-  async function deletarCliente(id) {
-    let resposta;
-    if (inputCod) {
-      resposta = await ClienteUtils.DeleteById(id).then(data => data)
-      alert(resposta.message)
-
-      historico.push("/")
-    } else {
-      alert("Sem codigo")
-    }
-    limparCampos();
+  async function deletarCliente() {
+    setShowModalConfirmacao(true)
   }
 
   return (
@@ -203,7 +227,7 @@ function Cadastro(props) {
           <div className="form-row justify-content-end">
             {inputCod && (
               <div className="col-1 d-flex justify-content-end">
-                <button type="button" className="btn btn-danger" onClick={() => deletarCliente(inputCod)}>Excluir</button>
+                <button type="button" className="btn btn-danger" onClick={() => deletarCliente()}>Excluir</button>
               </div>
 
             )}
@@ -258,7 +282,7 @@ function Cadastro(props) {
               <label>Redes Sociais</label>
             </div>
 
-            <div className="lista-itens">{}
+            <div className="lista-itens">{listaRedeSocialDisplay}
             </div>
             <br />
             <div className="row">
@@ -274,7 +298,7 @@ function Cadastro(props) {
 
 
       </form>
-
+      <ModalConfirmacao  idCLiente={props.idCliente} show={showModalConfirmacao} handleClose={() => setShowModalConfirmacao(false)}> </ModalConfirmacao>
       <ModalContato show={showModalContato} handleClose={() => setShowModalContato(false)} />
       <ModalEndereco show={showModalEndereco} handleClose={() => setShowModalEndereco(false)} />
       <ModalRdSocial show={showModalRdSocial} handleClose={() => setShowModalRdSocial(false)} />
@@ -287,13 +311,15 @@ function Cadastro(props) {
 const mapStateToProps = (state) => ({
   idCliente: state.Cliente.idCliente,
   idContato: state.Contato.idContato,
-  idEndereco: state.Endereco.idEndereco
+  idEndereco: state.Endereco.idEndereco,
+  idRedeSocial: state.RedeSocial.idRedeSocial
 });
 
 const mapDispatchToProps = (dispatch) => ({
   setIdCliente: (idCliente) => dispatch(ClienteAction.setIdCliente(idCliente)),
   setIdContato: (idContato) => dispatch(ContatoAction.setIdContato(idContato)),
-  setIdEndereco: (idEndereco) => dispatch(EnderecoAction.setIdEndereco(idEndereco))
+  setIdEndereco: (idEndereco) => dispatch(EnderecoAction.setIdEndereco(idEndereco)),
+  setIdRedeSocial: (idRedeSocial) => dispatch(RedeSocialAction.setIdRedeSocial(idRedeSocial))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cadastro);

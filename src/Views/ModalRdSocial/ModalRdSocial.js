@@ -13,7 +13,7 @@ function ModalRdSocial(props) {
 
     useEffect(() => {
         if (props.show) {
-            
+            preencherCampos()
         } else {
             limparCampos()
         }
@@ -28,14 +28,42 @@ function ModalRdSocial(props) {
     }
 
     async function salvarRedeSocial(){
-        var resposta = await RedeSocialUtils.post(inputTipo, inputReferencia, props.idCliente)
-        if(resposta === 200){
+        let resposta
+        if(props.idRedeSocial){
+            resposta = await RedeSocialUtils.put(props.idRedeSocial, inputTipo, inputReferencia, props.idCliente)
+        }else{
+            resposta = await RedeSocialUtils.post(inputTipo, inputReferencia, props.idCliente)
+        }
+        
+        if(resposta.status === 200){
             props.handleClose()
         }else{
             alert(resposta.message)
         }
     }
 
+    async function deletarRedeSocial(){
+        let resposta;
+        if (inputCod) {
+            resposta = await RedeSocialUtils.DeleteById(inputCod).then(data => data)
+            props.handleClose()
+        } else {
+            alert("Sem codigo")
+        }
+        limparCampos();
+    }
+
+    async function preencherCampos(){
+        var resposta = await RedeSocialUtils.GetById(props.idRedeSocial).then(data => data)
+        if(resposta.status === 200){
+            setInputCod(resposta.data.ID)
+            setInputReferencia(resposta.data.REFERENCIA)
+            setInputTipo(resposta.data.NOME)
+        }else{
+            alert(resposta.message)
+            limparCampos()
+        }
+    }
     return (
 
         <div>
@@ -76,6 +104,12 @@ function ModalRdSocial(props) {
 
                 </Modal.Body>
                 <Modal.Footer>
+                    {inputCod && (
+                        <div className="col d-flex justify-content-start">
+                            <button type="button" className="btn btn-danger" onClick={() => deletarRedeSocial()}>Excluir</button>
+                        </div>
+
+                    )}
                     <button type="button" className="btn btn-success" onClick={() => salvarRedeSocial()}>Salvar</button>
                 </Modal.Footer>
             </Modal>
@@ -88,7 +122,7 @@ function ModalRdSocial(props) {
 
 const mapStateToProps = (state) => ({
     idCliente: state.Cliente.idCliente,
-    idRedeSocial: state.Contato.idRedeSocial
+    idRedeSocial: state.RedeSocial.idRedeSocial
 
 });
 
