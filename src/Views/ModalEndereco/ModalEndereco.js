@@ -95,7 +95,7 @@ function ModalEndereco(props) {
                                         type = "text" 
                                         className="form-control"
                                         value={inputCep}
-                                        onChange={(event)=> setInputCep(event.target.value)}></input>                                    
+                                        onChange={(event)=> setInputCep(EnderecoUtils.FormataCep(event.target.value))}></input>                                    
                                     </div>
                                     <div className="col">
                                         <label>Numero</label>

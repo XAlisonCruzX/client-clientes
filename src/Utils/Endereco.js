@@ -74,5 +74,12 @@ export async function DeleteById(id){
     .then((response)=> response.json())
     .then((data) => data)
 
+}
 
+export function FormataCep(cep) {
+
+    cep = cep.replace(/[^\d]/g, ""); //retira os caracteres indesejados...
+
+    
+    return cep.replace(/(\d{5})(\d{3})/, "$1-$2"); //realizar a formatação...
 }

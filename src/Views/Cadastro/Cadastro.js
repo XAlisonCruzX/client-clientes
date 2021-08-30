@@ -39,7 +39,6 @@ function Cadastro(props) {
     }
   }, [props.idCliente, showModalContato, showModalEndereco, showModalRdSocial])
 
-
   function listarContatos(Telefones) {
     var contatosDisplay = Telefones.map((contato) => {
       return (<>
@@ -206,7 +205,7 @@ function Cadastro(props) {
                 type="text"
                 className="form-control"
                 value={inputCpf}
-                onChange={(event) => setInputCpf(event.target.value)}
+                onChange={(event) =>  setInputCpf(ClienteUtils.FormataCPF(event.target.value))}
                 maxLength="11" />
 
             </div>
@@ -216,7 +215,7 @@ function Cadastro(props) {
                 className=
                 "form-control"
                 value={inputRg}
-                onChange={(event) => setInputRg(event.target.value)}
+                onChange={(event) => setInputRg(ClienteUtils.FormataRg(event.target.value))}
                 maxLength="12" />
 
             </div>

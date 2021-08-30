@@ -8,7 +8,7 @@ import Contato from '../../Store/Reducers/Contato'
 function ModalContato(props) {
     const [inputCod, setInputCod] = useState('')
     const [inputNumero, setInputNumero] = useState('')
-    const [inputTipo, setInputTipo] = useState('Residencial')
+    const [inputTipo, setInputTipo] = useState("Comercial")
 
     useEffect(() => {
         if (props.show) {
@@ -32,7 +32,7 @@ function ModalContato(props) {
         props.setIdContato('')
         setInputCod('')
         setInputNumero('')
-        setInputTipo('Residencial')
+        setInputTipo("Comercial")
     }
 
     async function salvarContato() {
@@ -81,7 +81,7 @@ function ModalContato(props) {
                                         type="text"
                                         className="form-control"
                                         value={inputNumero}
-                                        onChange={(event) => setInputNumero(event.target.value)}></input>
+                                        onChange={(event) => setInputNumero(ContatoUtils.FormataTelefone(event.target.value))}></input>
 
                                 </div>
                                 <div className="col">

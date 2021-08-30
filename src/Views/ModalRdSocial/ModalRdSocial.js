@@ -23,8 +23,8 @@ function ModalRdSocial(props) {
     function limparCampos(){
         props.setIdRedeSocial('')
         setInputCod('')
-        setInputTipo('Facebook')
         setInputReferencia('')
+        setInputTipo('Facebook')
     }
 
     async function salvarRedeSocial(){
