@@ -12,7 +12,11 @@ function ModalContato(props) {
 
     useEffect(() => {
         if (props.show) {
-            preencherCampos(props.idContato)
+            if(props.idContato){
+                preencherCampos(props.idContato)
+            }else{
+                limparCampos()
+            }  
         } else {
             limparCampos()
         }

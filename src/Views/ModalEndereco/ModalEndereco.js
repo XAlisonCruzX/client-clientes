@@ -13,7 +13,12 @@ function ModalEndereco(props) {
 
     useEffect(() => {
         if (props.show) {
-            preencherCampos(props.idEndereco)
+            if(props.idEndereco){
+                preencherCampos(props.idEndereco)
+            }else{
+                limparCampos();
+            }
+            
         } else {
             limparCampos()
         }

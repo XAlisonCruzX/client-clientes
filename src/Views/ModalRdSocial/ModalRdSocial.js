@@ -13,7 +13,12 @@ function ModalRdSocial(props) {
 
     useEffect(() => {
         if (props.show) {
-            preencherCampos()
+            if(props.idRedeSocial){
+                preencherCampos()
+            }else{
+                limparCampos()
+            }
+            
         } else {
             limparCampos()
         }
