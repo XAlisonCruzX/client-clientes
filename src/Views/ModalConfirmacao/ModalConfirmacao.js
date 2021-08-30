@@ -13,7 +13,13 @@ function ModalConfirmacao(props) {
         
         if (props.idCliente) {
           resposta = await ClienteUtils.DeleteById(props.idCliente).then(data => data)
-          historico.push("/")
+          if(resposta.status === 200){
+            props.setIdCliente('')
+            historico.push("/")
+          }else{
+              alert(resposta.message)
+          }
+         
         } else {
           alert("Sem codigo")
         }
