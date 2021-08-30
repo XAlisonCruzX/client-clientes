@@ -29,6 +29,7 @@ function ModalRdSocial(props) {
 
     async function salvarRedeSocial(){
         let resposta
+
         if(props.idRedeSocial){
             resposta = await RedeSocialUtils.put(props.idRedeSocial, inputTipo, inputReferencia, props.idCliente)
         }else{
@@ -44,6 +45,7 @@ function ModalRdSocial(props) {
 
     async function deletarRedeSocial(){
         let resposta;
+
         if (inputCod) {
             resposta = await RedeSocialUtils.DeleteById(inputCod).then(data => data)
             props.handleClose()
@@ -55,6 +57,7 @@ function ModalRdSocial(props) {
 
     async function preencherCampos(){
         var resposta = await RedeSocialUtils.GetById(props.idRedeSocial).then(data => data)
+
         if(resposta.status === 200){
             setInputCod(resposta.data.ID)
             setInputReferencia(resposta.data.REFERENCIA)
@@ -72,7 +75,6 @@ function ModalRdSocial(props) {
                     <Modal.Title>Contato</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-            
                         <form>
                             <div className="form-group">
                                 <div className="form-row">
@@ -82,8 +84,7 @@ function ModalRdSocial(props) {
                                         type = "text" 
                                         className="form-control"
                                         value={inputReferencia}
-                                        onChange={(event) => setInputReferencia(event.target.value)}></input>
-                                        
+                                        onChange={(event) => setInputReferencia(event.target.value)}></input>                                       
                                     </div>
                                     <div className="col">
                                         <label>Tipo</label>
@@ -96,8 +97,7 @@ function ModalRdSocial(props) {
                                             <option value ="Twitter">Twitter</option>
                                             <option value ="LinkedIn">LinkedIn</option>
                                         </select>
-                                    </div>
-                                   
+                                    </div>                                  
                                 </div>
                             </div>
                         </form>
@@ -108,16 +108,12 @@ function ModalRdSocial(props) {
                         <div className="col d-flex justify-content-start">
                             <button type="button" className="btn btn-danger" onClick={() => deletarRedeSocial()}>Excluir</button>
                         </div>
-
                     )}
                     <button type="button" className="btn btn-success" onClick={() => salvarRedeSocial()}>Salvar</button>
                 </Modal.Footer>
             </Modal>
-
         </div>
-
     )
-
 }
 
 const mapStateToProps = (state) => ({

@@ -25,7 +25,6 @@ function ModalContato(props) {
             setInputNumero(resposta.data.NUMERO)
             setInputTipo(resposta.data.TIPO)
         }
-
     }
 
     function limparCampos() {
@@ -53,6 +52,7 @@ function ModalContato(props) {
 
     async function deletarContato(id) {
         let resposta;
+
         if (inputCod) {
             resposta = await ContatoUtils.DeleteById(id).then(data => data)
             props.handleClose()
@@ -62,16 +62,13 @@ function ModalContato(props) {
         limparCampos();
     }
 
-
     return (
-
         <div>
             <Modal show={props.show} onHide={props.handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Contato</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-
                     <form>
                         <div className="form-group">
                             <div className="form-row">
@@ -82,7 +79,6 @@ function ModalContato(props) {
                                         className="form-control"
                                         value={inputNumero}
                                         onChange={(event) => setInputNumero(ContatoUtils.FormataTelefone(event.target.value))}></input>
-
                                 </div>
                                 <div className="col">
                                     <label>Tipo</label>
@@ -99,30 +95,21 @@ function ModalContato(props) {
                             </div>
                         </div>
                     </form>
-
                 </Modal.Body>
                 <Modal.Footer>
-
-
                     {inputCod && (
                         <div className="col d-flex justify-content-start">
                             <button type="button" className="btn btn-danger" onClick={() => deletarContato(inputCod)}>Excluir</button>
                         </div>
 
                     )}
-
                     <div className="col d-flex justify-content-end">
                         <button type="button" className="btn btn-success" onClick={() => salvarContato()}>Salvar</button>
                     </div>
-
-
                 </Modal.Footer>
             </Modal>
-
         </div>
-
     )
-
 }
 
 const mapStateToProps = (state) => ({

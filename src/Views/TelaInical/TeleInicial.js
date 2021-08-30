@@ -28,8 +28,8 @@ function TelaInicial(props) {
     async function listarCliente(pag, quant, nome) {
         const resposta = await ClienteUtils.GetClientePag(pag, quant, nome).then((data) => data)
         if (resposta.status === 200) {
-
             let listaClientes;
+
             listaClientes = resposta.data.listaCliente.map((cliente) => {
                 return (<>
                     <div className="itens" onClick={() => props.setIdCliente(cliente.ID, historico.push("/Cadastro"))}>
@@ -57,12 +57,9 @@ function TelaInicial(props) {
                         </div>
                     </div>
                 </>)
-
             })
             setQuantTotalRegistros(resposta.data.quantTamLista)
             setClientesDisplay(listaClientes)
-
-
         }
     }
 
@@ -75,24 +72,18 @@ function TelaInicial(props) {
                         <input type="text" className="form-control"
                             value={nomeBuscar}
                             onChange={(event) => setNomeBuscar(event.target.value)} />
-                       
                     </div>
                     <div className="col d-flex justify-content-end align-items-end">
-                            <button type="button" className="btn btn-primary" onClick={() => {
-                                historico.push("/cadastro")
-                                props.setIdCliente('')
-                                }}>Novo</button>
+                        <button type="button" className="btn btn-primary" onClick={() => {
+                            historico.push("/cadastro")
+                            props.setIdCliente('')
+                        }}>Novo</button>
                     </div>
-
-
                 </div>
             </div>
-
-
             <div className="d-flex justify-content-start">
                 <label>Clientes</label>
             </div>
-
             <div className="lista-itens">
                 {listaClientesDisplay}
             </div>
@@ -116,7 +107,6 @@ function TelaInicial(props) {
                         disabled={quantTotalRegistros / quantPagina > numeroPagina + 1 ? false : true}>{">"}</button>
                 </div>
             </div>
-
         </>
     );
 }

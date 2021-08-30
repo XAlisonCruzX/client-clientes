@@ -10,23 +10,22 @@ function ModalConfirmacao(props) {
 
     async function deletarCliente() {
         let resposta;
+        
         if (props.idCliente) {
           resposta = await ClienteUtils.DeleteById(props.idCliente).then(data => data)
-    
           historico.push("/")
         } else {
           alert("Sem codigo")
         }
-      }
-    return (
+    }
 
+    return (
         <div>
             <Modal show={props.show} onHide={props.handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Deletar Contato</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-
                     <form>
                         <div className="form-group">
                             <div className="form-row">
@@ -36,7 +35,6 @@ function ModalConfirmacao(props) {
                             </div>
                         </div>
                     </form>
-
                 </Modal.Body>
                 <Modal.Footer>  
                     <div className="col d-flex justify-content-start">
@@ -47,9 +45,7 @@ function ModalConfirmacao(props) {
                     </div>
                 </Modal.Footer>
             </Modal>
-
         </div>
-
     )
 
 }

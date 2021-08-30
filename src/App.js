@@ -17,7 +17,7 @@ function App() {
   return (
     <Router>
       <div id="App">
-        <div id="esp-cab">
+        <div id="esp-cab" className="">
           <div className="title-cab d-flex justify-content-center">Gerenciamento de Clientes</div>
         </div>
         <div id="esp-esq">
@@ -31,8 +31,6 @@ function App() {
               </li>
             </ul>
           </nav>
-
-
         </div>
         <div id="esp-cen">
           <Provider store={store}>
@@ -49,9 +47,6 @@ function App() {
         <div id="esp-dir"></div>
         <div id="esp-rod"></div>
       </div>
-
-
-
     </Router>
   )
 }

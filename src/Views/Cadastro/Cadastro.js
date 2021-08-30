@@ -51,7 +51,6 @@ function Cadastro(props) {
           <br />
           <label>Tipo:</label>
           <label className="" name="tipo">&nbsp;{contato.TIPO}</label>
-
         </div>
       </>)
     })
@@ -70,7 +69,6 @@ function Cadastro(props) {
         </div>
       </>)
     })
-
     setListaRedeSocialDisplay(redesSociaisDisplay)
   }
 
@@ -89,7 +87,6 @@ function Cadastro(props) {
           &nbsp;&nbsp;&nbsp;
           <label>Tipo:</label>
           <label className="" name="tipo">&nbsp;{endereco.TIPO}</label>
-
         </div>
       </>)
     })
@@ -99,7 +96,9 @@ function Cadastro(props) {
 
 
   async function GetById(id) {
+
     let resposta
+
     if(id){
       resposta = await ClienteUtils.GetById(id).then(data => data)
     }else{
@@ -115,7 +114,6 @@ function Cadastro(props) {
       listarContatos(resposta.data.Cliente.Telefones)
       listarEndereco(resposta.data.Cliente.Enderecos)
       listarRedeSocial(resposta.data.Cliente.RedesSociais)
-
     } else {
       limparCampos();
     }
@@ -147,7 +145,6 @@ function Cadastro(props) {
     } else {
       alert(resposta.message)
     }
-
   }
 
   async function deletarCliente() {
@@ -183,7 +180,6 @@ function Cadastro(props) {
                 value={inputNome}
                 onChange={(event) => setInputNome(event.target.value)}
               />
-
             </div>
             <div className="col-4">
               <label>Nascimento</label>
@@ -193,7 +189,6 @@ function Cadastro(props) {
                 value={inputNascimento}
                 onChange={(event) => setInputNascimento(event.target.value)}
               />
-
             </div>
           </div>
         </div>
@@ -207,7 +202,6 @@ function Cadastro(props) {
                 value={inputCpf}
                 onChange={(event) =>  setInputCpf(ClienteUtils.FormataCPF(event.target.value))}
                 maxLength="11" />
-
             </div>
             <div className="col-6">
               <label>RG</label>
@@ -217,35 +211,27 @@ function Cadastro(props) {
                 value={inputRg}
                 onChange={(event) => setInputRg(ClienteUtils.FormataRg(event.target.value))}
                 maxLength="12" />
-
             </div>
           </div>
         </div>
-
         <div className="form-group">
           <div className="form-row justify-content-end">
             {inputCod && (
               <div className="col-1 d-flex justify-content-end">
                 <button type="button" className="btn btn-danger" onClick={() => deletarCliente()}>Excluir</button>
               </div>
-
             )}
-
             <div className="col-1 d-flex justify-content-end">
               <button type="button" className="btn btn-success" onClick={() => salvarCliente()}>Salvar</button>
             </div>
-
           </div>
         </div>
-
-
         <div className="container-listas">
           <div className="contato">
             <div className="d-flex justify-content-start">
               <label>Contatos</label>
             </div>
             <div className="lista-itens">{listaContatosDisplay}</div>
-
             <br />
             <div className="row">
               {inputCod && (
@@ -253,10 +239,7 @@ function Cadastro(props) {
                   <button type="button" className="btn btn-primary" onClick={() => setShowModalContato(true)}>Adicionar</button>
                 </div>
               )}
-
-
             </div>
-
           </div>
           <div className=" endereco">
             <div className="d-flex justify-content-start">
@@ -270,17 +253,12 @@ function Cadastro(props) {
                   <button type="button" className="btn btn-primary" onClick={() => setShowModalEndereco(true)}>Adicionar</button>
                 </div>
               )}
-
             </div>
-
           </div>
-
-
           <div className=" redesocial">
             <div className="d-flex justify-content-start">
               <label>Redes Sociais</label>
             </div>
-
             <div className="lista-itens">{listaRedeSocialDisplay}
             </div>
             <br />
@@ -290,20 +268,15 @@ function Cadastro(props) {
                   <button type="button" className="btn btn-primary" onClick={() => setShowModalRdSocial(true)}>Adicionar</button>
                 </div>
               )}
-
             </div>
           </div>
         </div>
-
-
       </form>
       <ModalConfirmacao  idCLiente={props.idCliente} show={showModalConfirmacao} handleClose={() => setShowModalConfirmacao(false)}> </ModalConfirmacao>
       <ModalContato show={showModalContato} handleClose={() => setShowModalContato(false)} />
       <ModalEndereco show={showModalEndereco} handleClose={() => setShowModalEndereco(false)} />
       <ModalRdSocial show={showModalRdSocial} handleClose={() => setShowModalRdSocial(false)} />
-
     </>
-
   );
 }
 
